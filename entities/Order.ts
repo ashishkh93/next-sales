@@ -5,9 +5,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from "typeorm";
-import { OrderDetail } from "./OrderDetail";
 
 @Entity()
 export class Order {
@@ -42,6 +40,6 @@ export class Order {
   public updatedAt!: Date;
 
   // Bidirectional relation to OrderDetail
-//   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
-//   orderDetails: OrderDetail[];
+  //   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
+  //   orderDetails: OrderDetail[];
 }

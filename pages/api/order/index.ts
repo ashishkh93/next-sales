@@ -11,6 +11,10 @@ const handler = async (
   res: NextApiResponse
 ): Promise<void> => {
   try {
+    if (req.method !== "POST") {
+      return res.status(405).json({ message: "Method Not Allowed" });
+    }
+
     await getDataSource();
     const orderService = new OrderService();
     const orderDeatilsService = new OrderDetailService();
@@ -20,7 +24,7 @@ const handler = async (
 
     if (newOrder) {
       let orderDetail: OrderDetail[] = orderBody.orderDetail;
-      const orderId = newOrder.id as Order["id"];
+      const orderId: Order["id"] = newOrder.id;
       orderDetail = orderDetail.map((order) => ({
         ...order,
         order_id: orderId,
