@@ -41,7 +41,7 @@ const handler = async (
     );
     return res.status(200).json({
       status: true,
-      message: "Parties got successfully",
+      message: "Parties fetched successfully",
       entity: relatedParteis,
     });
   } catch (error) {
