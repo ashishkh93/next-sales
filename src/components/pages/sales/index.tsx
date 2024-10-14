@@ -1,7 +1,6 @@
 import PageHeader from "@/components/header/page-header";
 import React from "react";
 import SalesFirstContainer from "./sales-first-container";
-import { Input } from "@/components/ui/input";
 import SInput from "@/components/shared/SInput";
 import {
   Table,
@@ -12,7 +11,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import InputSuffix from "./input-suffix";
+import { CONSTANTS } from "@/lib/constants";
 
 const SalesComp = () => {
   return (
@@ -28,44 +29,79 @@ const SalesComp = () => {
       </div>
       <div className="w-full border-[1px] py-4 mb-3 border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
         <div className="grid grid-cols-12 gap-4 ">
-          <div className="col-span-6 px-4">
+          <div className="col-span-6 px-4 pr-2">
             <div className="flex justify-between mb-1">
-              <span>Party Name</span>
-              <span>Curr. Bal. : 1000.00 Dr.</span>
+              <span className={CONSTANTS.titleClass}>Party Name</span>
+              <span className={CONSTANTS.titleClass}>
+                Curr. Bal. : 1000.00 Dr.
+              </span>
             </div>
-            <SInput
-              placeholder="Search here..."
-              hasBadge={<div className="absolute top-2 right-2 border-l-2">10 Days</div>}
-              className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none pr-[70px]"
-            />
+            <div className="flex w-full">
+              <div className="w-full">
+                <SInput
+                  placeholder="Search here..."
+                  className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none rounded-r-none"
+                />
+              </div>
+              <InputSuffix body="10 Days" />
+            </div>
           </div>
 
           <div className="col-span-6 px-4">
             <div className="w-[50%] ml-auto">
               <div className="mb-1">
-                <span>Ref. Voucher Book</span>
+                <span className={CONSTANTS.titleClass}>Ref. Voucher Book</span>
               </div>
-              <Input type="email" placeholder="Email" />
+              <div className="flex w-full">
+                <SInput
+                  type="text"
+                  placeholder="TAX. Invoice Book"
+                  className="rounded-r-none"
+                />
+                <InputSuffix
+                  className="px-[37px] text-gray-500"
+                  body="364001"
+                />
+              </div>
             </div>
           </div>
         </div>
         <div className="grid grid-cols-12 pt-3">
           <div className="col-span-6 px-4">
             <div className="flex justify-between mb-1">
-              <span>Remark</span>
+              <span className={CONSTANTS.titleClass}>Remark</span>
             </div>
             <SInput
               placeholder="Add remark"
-              className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none pr-[70px]"
+              className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none"
             />
           </div>
 
           <div className="col-span-6 px-4">
             <div className="w-[50%] ml-auto">
               <div className="mb-1">
-                <span>Voucher Number & Date</span>
+                <span className={CONSTANTS.titleClass}>
+                  Voucher Number & Date
+                </span>
               </div>
-              <Input type="email" placeholder="SI / 99999 / 23-24" />
+              <div className="flex w-full">
+                <SInput
+                  type="text"
+                  placeholder="SI / 99999 / 23-24"
+                  className="rounded-r-none"
+                />
+                <InputSuffix
+                  className="px-[10px] text-gray-500"
+                  body={
+                    <div className="flex gap-1 justify-center items-center">
+                      <span>21/03/2034</span>
+                      <div>
+                        <img src="/icons/date.svg" />
+                      </div>
+                    </div>
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -85,9 +121,7 @@ const SalesComp = () => {
           <TableBody>
             <TableRow>
               <TableCell className="font-medium">This is description</TableCell>
-              <TableCell>
-                6
-              </TableCell>
+              <TableCell>6</TableCell>
               <TableCell className="text-right">25</TableCell>
             </TableRow>
           </TableBody>
