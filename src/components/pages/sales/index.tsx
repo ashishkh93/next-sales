@@ -106,7 +106,7 @@ const SalesComp = () => {
           </div>
         </div>
       </div>
-      <div className="w-full border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
+      <div className="w-full h-[362px] border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
         <SalesFirstContainer />
       </div>
       <div className="w-[40%] ml-auto mt-4 border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">

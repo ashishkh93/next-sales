@@ -62,7 +62,7 @@ const config: Config = {
         muted: "#64748B",
       },
       fontSize: {
-        sm: "0.875rem",
+        sm: "12px",
         md: "14px",
         base: "1rem",
         lg: "1.125rem",
@@ -75,6 +75,9 @@ const config: Config = {
         "7xl": "4.5rem",
         "8xl": "6rem",
         "9xl": "8rem",
+      },
+      backgroundColor: {
+        primary: "#E2E8F0",
       },
     },
   },
