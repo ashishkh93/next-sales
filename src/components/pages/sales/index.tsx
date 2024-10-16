@@ -28,6 +28,8 @@ const SalesComp = () => {
       tax: 0,
     },
   ]);
+  const [singleParty, setSingleParty] = React.useState<string>("");
+
   return (
     <div>
       <div className="mb-[14px]">
@@ -50,7 +52,10 @@ const SalesComp = () => {
             </div>
             <div className="flex w-full">
               <div className="w-full">
-                <ComboboxDemo />
+                <ComboboxDemo
+                  setSingleParty={setSingleParty}
+                  singleParty={singleParty}
+                />
                 {/* <SInput
                   placeholder="Search here..."
                   className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none rounded-r-none"

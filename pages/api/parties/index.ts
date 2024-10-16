@@ -2,10 +2,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getDataSource } from "../../../ormconfig";
 
-interface Party {
-  id: number;
-  name: string;
-  code: string;
+declare global {
+  interface Party {
+    id: string;
+    name: string;
+    code: string;
+  }
 }
 
 type Search = {
@@ -13,16 +15,16 @@ type Search = {
 };
 
 const default_parties: Party[] = [
-  { id: 1, name: "John Doe", code: "P-JOHN" },
-  { id: 2, name: "Jane Smith", code: "P-JANE" },
-  { id: 3, name: "Robert Brown", code: "P-ROBER" },
-  { id: 4, name: "Emily Davis", code: "P-EMILY" },
-  { id: 5, name: "Michael Wilson", code: "P-MICHA" },
-  { id: 6, name: "Sarah Johnson", code: "P-SARAH" },
-  { id: 7, name: "David Lee", code: "P-DAVID" },
-  { id: 8, name: "Sophia Martinez", code: "P-SOPHI" },
-  { id: 9, name: "James White", code: "P-JAMES" },
-  { id: 10, name: "Olivia Harris", code: "P-OLIVI" },
+  { id: "1", name: "John Doe", code: "P-JOHN" },
+  { id: "2", name: "Jane Smith", code: "P-JANE" },
+  { id: "3", name: "Robert Brown", code: "P-ROBER" },
+  { id: "4", name: "Emily Davis", code: "P-EMILY" },
+  { id: "5", name: "Michael Wilson", code: "P-MICHA" },
+  { id: "6", name: "Sarah Johnson", code: "P-SARAH" },
+  { id: "7", name: "David Lee", code: "P-DAVID" },
+  { id: "8", name: "Sophia Martinez", code: "P-SOPHI" },
+  { id: "9", name: "James White", code: "P-JAMES" },
+  { id: "10", name: "Olivia Harris", code: "P-OLIVI" },
 ];
 
 const handler = async (
@@ -37,7 +39,9 @@ const handler = async (
     }
 
     const relatedParteis = default_parties.filter((party: Party) =>
-      party.name.includes(search as string)
+      party.name
+        ?.toLocaleLowerCase()
+        .includes(search?.toLocaleLowerCase() as string)
     );
     return res.status(200).json({
       status: true,
