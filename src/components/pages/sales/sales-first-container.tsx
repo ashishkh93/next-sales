@@ -49,8 +49,8 @@ const SalesFirstContainer = ({ lstProduct, setLstProduct }: any) => {
 
   return (
     <div className="h-full flex flex-col">
-      <Table className="h-[245px] flex-grow">
-        <TableHeader className="sticky top-0 bg-primary">
+      <Table className="flex-grow">
+        <TableHeader className="sticky top-0 bg-primary z-10">
           <TableRow className="z-20">
             <TableHead className="w-[100px] text-muted">Sr.</TableHead>
             <TableHead className="text-muted">Item Name</TableHead>
@@ -68,7 +68,7 @@ const SalesFirstContainer = ({ lstProduct, setLstProduct }: any) => {
         {/* Table Body */}
         <TableBody className="flex-grow overflow-y-auto w-[100vw]">
           {lstProduct?.length > 0 && lstProduct.map((objProduct: any, index: number) => (
-            <TableRow key={index + 1}>
+            <TableRow key={index + 1} className="h-[35px]">
               <TableCell className="font-medium">{index + 1}</TableCell>
               <TableCell>
                 <div>

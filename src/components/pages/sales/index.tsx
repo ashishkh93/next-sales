@@ -15,6 +15,7 @@ import {
 import InputSuffix from "./input-suffix";
 import { CONSTANTS } from "@/lib/constants";
 import { ComboboxDemo } from "@/components/ui/ComboboxDemo";
+import Footer from "@/components/layout/footer";
 
 const SalesComp = () => {
   const [lstProduct, setLstProduct] = useState([
@@ -130,7 +131,7 @@ const SalesComp = () => {
           setLstProduct={setLstProduct}
         />
       </div>
-      <div className="w-[40%] ml-auto mt-4 border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
+      <div className="total-root w-[40%] ml-auto mt-4 border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
         <Table>
           <TableHeader>
             <TableRow className="border-b-1 border-[#E2E8F0]">
@@ -153,6 +154,7 @@ const SalesComp = () => {
           <div className="font-semibold mt-4">Bill Amount : 0.0</div>
         }
       />
+      <Footer />
     </div>
   );
 };

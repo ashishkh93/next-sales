@@ -3,10 +3,10 @@
 import React from "react";
 
 const Footer = () => {
-  const handleSave = () => {};
+  const handleSave = () => { };
 
   return (
-    <div className="h-[50px] w-full border-[1px] border-gray-200">
+    <div className="fixed bottom-0 h-[50px] w-full border-[1px] border-gray-200">
       <div className="grid grid-cols-12 items-center h-full">
         <div className="col-span-6">
           <div className="inline-flex rounded-md shadow-sm" role="group">

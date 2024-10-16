@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <Header />
         <main className="h-[calc(100dvh-105px)] overflow-y-auto">{children}</main>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );
