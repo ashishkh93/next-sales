@@ -17,14 +17,16 @@ const Header = () => {
       <div>
         <SInput
           placeholder="Search here..."
-          hasBadge={<div className="absolute top-1 right-2">
-            <Badge
-              variant="outline"
-              className="bg-[#F1F5F9] text-black !hover:bg-current text-[10px] font-normal"
-            >
-              Alt+F4
-            </Badge>
-          </div>}
+          hasBadge={
+            <div className="absolute top-1 right-2">
+              <Badge
+                variant="outline"
+                className="bg-[#F1F5F9] text-black !hover:bg-current text-[10px] font-normal"
+              >
+                Alt+F4
+              </Badge>
+            </div>
+          }
           className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outlin-none"
         />
       </div>

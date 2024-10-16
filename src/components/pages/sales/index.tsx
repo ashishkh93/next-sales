@@ -16,15 +16,17 @@ import InputSuffix from "./input-suffix";
 import { CONSTANTS } from "@/lib/constants";
 
 const SalesComp = () => {
-  const [lstProduct, setLstProduct] = useState([{
-    itemName: 'Lorem Ipsum',
-    description: 'Lorem Ipsum',
-    qty: 0,
-    gRate: 0,
-    discount: 0,
-    gnAmount: 0,
-    tax: 0,
-  }])
+  const [lstProduct, setLstProduct] = useState([
+    {
+      itemName: "Lorem Ipsum",
+      description: "Lorem Ipsum",
+      qty: 0,
+      gRate: 0,
+      discount: 0,
+      gnAmount: 0,
+      tax: 0,
+    },
+  ]);
   return (
     <div>
       <div className="mb-[14px]">
@@ -116,7 +118,10 @@ const SalesComp = () => {
         </div>
       </div>
       <div className="w-full h-[245px] border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
-        <SalesFirstContainer lstProduct={lstProduct} setLstProduct={setLstProduct} />
+        <SalesFirstContainer
+          lstProduct={lstProduct}
+          setLstProduct={setLstProduct}
+        />
       </div>
       <div className="w-[40%] ml-auto mt-4 border-[1px] border-[#E2E8F0] rounded-lg shadow-sm bg-[#f8fafc]">
         <Table>
