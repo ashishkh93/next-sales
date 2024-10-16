@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import InputSuffix from "./input-suffix";
 import { CONSTANTS } from "@/lib/constants";
+import { ComboboxDemo } from "@/components/ui/ComboboxDemo";
 
 const SalesComp = () => {
   const [lstProduct, setLstProduct] = useState([{
@@ -47,10 +48,11 @@ const SalesComp = () => {
             </div>
             <div className="flex w-full">
               <div className="w-full">
-                <SInput
+                <ComboboxDemo />
+                {/* <SInput
                   placeholder="Search here..."
                   className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none rounded-r-none"
-                />
+                /> */}
               </div>
               <InputSuffix body="10 Days" />
             </div>
