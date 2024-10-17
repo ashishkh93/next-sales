@@ -30,7 +30,24 @@ const SalesComp = () => {
     },
   ]);
   const [singleParty, setSingleParty] = React.useState<string>("");
+  const [ref, setRef] = React.useState<string>("");
+  const [remark, setRemark] = React.useState<string>("");
+  const [date, setDate] = React.useState<string>("");
 
+  const getTotal = () => {
+    return lstProduct?.reduce((total: number, item: any) => total + ((Number(item.qty) || 0) * (Number(item.gRate) || 0)), 0);
+  }
+
+  const onSave = () => {
+    const data = {
+      singleParty: singleParty,
+      ref: ref,
+      remark: remark,
+      date: date,
+      lstProduct: lstProduct
+    }
+    console.log('data: ', data);
+  }
   return (
     <div>
       <div className="mb-[14px]">
@@ -76,6 +93,9 @@ const SalesComp = () => {
                   type="text"
                   placeholder="TAX. Invoice Book"
                   className="rounded-r-none"
+                  name="ref"
+                  value={ref}
+                  onChange={(e) => setRef(e.target.value)}
                 />
                 <InputSuffix
                   className="px-[37px] text-gray-500"
@@ -93,6 +113,9 @@ const SalesComp = () => {
             <SInput
               placeholder="Add remark"
               className="focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0 active:outline-none"
+              name="remark"
+              value={remark}
+              onChange={(e) => setRemark(e.target.value)}
             />
           </div>
 
@@ -108,6 +131,9 @@ const SalesComp = () => {
                   type="text"
                   placeholder="SI / 99999 / 23-24"
                   className="rounded-r-none"
+                  name="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
                 />
                 <InputSuffix
                   className="px-[10px] text-gray-500"
@@ -142,7 +168,7 @@ const SalesComp = () => {
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-medium">This is description</TableCell>
+              <TableCell className="font-medium">Discount</TableCell>
               <TableCell>6</TableCell>
               <TableCell className="text-right">25</TableCell>
             </TableRow>
@@ -151,10 +177,10 @@ const SalesComp = () => {
       </div>
       <PageHeader
         rightSideComp={
-          <div className="font-semibold mt-4">Bill Amount : 0.0</div>
+          <div className="font-semibold mt-4">Bill Amount :{getTotal()}</div>
         }
       />
-      <Footer />
+      <Footer onSave={onSave} />
     </div>
   );
 };
