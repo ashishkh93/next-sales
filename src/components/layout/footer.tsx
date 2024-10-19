@@ -3,7 +3,9 @@
 import React from "react";
 
 const Footer = ({ onSave }: any) => {
-  const handleSave = () => { onSave() };
+  const handleSave = () => {
+    onSave();
+  };
 
   return (
     <div className="fixed bottom-0 h-[50px] w-full border-[1px] border-gray-200">

@@ -5,9 +5,7 @@ import SInput from "@/components/shared/SInput";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -16,40 +14,94 @@ import InputSuffix from "./input-suffix";
 import { CONSTANTS } from "@/lib/constants";
 import { ComboboxDemo } from "@/components/ui/ComboboxDemo";
 import Footer from "@/components/layout/footer";
+import { ApiResponse, IOrderBody } from "types/common";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+import { OrderDetail } from "entities/OrderDetail";
+import { toastMessage } from "@/lib/utils";
 
 const SalesComp = () => {
-  const [lstProduct, setLstProduct] = useState([
+  const initItems = [
     {
-      itemName: "Lorem Ipsum",
-      description: "Lorem Ipsum",
+      item_name: "Lorem Ipsum",
+      item_desc: "Lorem Ipsum",
       qty: 0,
-      gRate: 0,
+      g_rate: 0,
       discount: 0,
-      gnAmount: 0,
+      net_amount: 0,
       tax: 0,
     },
-  ]);
+  ];
+  const [lstProduct, setLstProduct] =
+    useState<Partial<OrderDetail>[]>(initItems);
   const [singleParty, setSingleParty] = React.useState<string>("");
   const [ref, setRef] = React.useState<string>("");
   const [remark, setRemark] = React.useState<string>("");
-  const [date, setDate] = React.useState<string>("");
+  const [voucherNum, setVoucherNum] = React.useState<string>("");
+
+  const resetStates = () => {
+    setSingleParty("");
+    setRef("");
+    setRemark("");
+    setVoucherNum("");
+    setLstProduct(initItems);
+  };
 
   const getTotal = () => {
-    return lstProduct?.reduce((total: number, item: any) => total + ((Number(item.qty) || 0) * (Number(item.gRate) || 0)), 0);
-  }
+    return lstProduct?.reduce(
+      (total: number, item: any) =>
+        total + (Number(item.qty) || 0) * (Number(item.g_rate) || 0),
+      0
+    );
+  };
 
-  const onSave = () => {
-    const data = {
-      singleParty: singleParty,
-      ref: ref,
+  const onSave = async () => {
+    const data: Partial<IOrderBody> = {
+      party_name: singleParty,
+      ref_voucher_book: ref,
+      ref_voucher_code: "364001",
+      voucher_num: voucherNum,
+      // voucher_date: "21/03/2034",
+      voucher_date: "2024-03-21",
+      orderDetail: lstProduct?.map((p) => ({
+        ...p,
+        total_amount: Number(p?.g_rate || 0) * Number(p?.qty || 0),
+      })),
       remark: remark,
-      date: date,
-      lstProduct: lstProduct
+      total_amount: Number(getTotal()),
+    };
+
+    if (data.total_amount === 0) {
+      toastMessage("Please add at least one item");
+      return;
+    } else if (!data.party_name) {
+      toastMessage("Please provide party name");
+      return;
     }
-    console.log('data: ', data);
-  }
+
+    const orderResponse = await fetch("/api/order", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = (await orderResponse.json()) as ApiResponse<IOrderBody>;
+    if (result?.status) {
+      toastMessage(result?.message || "Order has been created");
+      resetStates();
+    } else {
+      toastMessage(result?.message || "Failed to create an order");
+    }
+  };
   return (
     <div>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: "bg-black border-none text-sm",
+        }}
+      />
       <div className="mb-[14px]">
         <PageHeader
           title="Sales Bill"
@@ -132,8 +184,8 @@ const SalesComp = () => {
                   placeholder="SI / 99999 / 23-24"
                   className="rounded-r-none"
                   name="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  value={voucherNum}
+                  onChange={(e) => setVoucherNum(e.target.value)}
                 />
                 <InputSuffix
                   className="px-[10px] text-gray-500"

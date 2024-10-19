@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { CheckIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -42,21 +42,35 @@ export function ComboboxDemo({
   const [parties, setParties] = React.useState<SingleParty[]>(default_parties);
 
   const fetchParties = async (search: string) => {
-    const response = await fetch(`/api/parties?search=${search}`);
-    const result = (await response.json()) as { entity: Party[] };
-    const data = result?.entity;
-    const reducesParties = data?.map((item: Party) => ({
-      value: `${item.name} - ${item.code}`,
-      label: `${item.name} - ${item.code}`,
-    }));
+    if (search) {
+      const response = await fetch(`/api/parties?search=${search}`);
+      const result = (await response.json()) as { entity: Party[] };
+      const data = result?.entity;
+      const reducesParties = data?.map((item: Party) => ({
+        value: `${item.name} - ${item.code}`,
+        label: `${item.name} - ${item.code}`,
+      }));
 
-    setParties(reducesParties);
+      setParties(reducesParties);
+    } else {
+      setParties(default_parties);
+    }
   };
 
+  const debounceCall = (func: (value: string) => void, delay: number) => {
+    let timer: NodeJS.Timeout;
+    return (value: string) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(value);
+      }, delay);
+    };
+  };
+
+  const debouncedFetchParties = debounceCall(fetchParties, 500);
+
   const handleSearch = (value: string) => {
-    if (!!value) {
-      fetchParties(value);
-    }
+    debouncedFetchParties(value);
   };
 
   return (
@@ -66,15 +80,17 @@ export function ComboboxDemo({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[100%] justify-between"
+          className="w-full justify-between rounded-r-none"
         >
-          {singleParty
-            ? parties.find((party) => party.value === singleParty)?.label
-            : "Select party..."}
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <div className="text-[#9ca3af]">
+            {singleParty
+              ? parties?.find((party) => party.value === singleParty)?.label
+              : "Select party..."}
+          </div>
+          {/* <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[100%] p-0">
+      <PopoverContent className="!w-[100] p-0">
         <Command>
           <CommandInput
             placeholder="Search Party..."
@@ -84,7 +100,7 @@ export function ComboboxDemo({
           <CommandList>
             <CommandEmpty>No Party found.</CommandEmpty>
             <CommandGroup>
-              {parties.map((party) => (
+              {parties?.map((party) => (
                 <CommandItem
                   key={party.value}
                   value={party.value}

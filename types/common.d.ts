@@ -8,5 +8,5 @@ interface ApiResponse<T> {
 }
 
 interface IOrderBody extends Order {
-  orderDetail: OrderDetail[];
+  orderDetail: Partial<OrderDetail>[];
 }

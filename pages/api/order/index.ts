@@ -23,11 +23,11 @@ const handler = async (
     const newOrder = await orderService.createOrder(orderBody);
 
     if (newOrder) {
-      let orderDetail: OrderDetail[] = orderBody.orderDetail;
+      let orderDetail: Partial<OrderDetail>[] | any = orderBody.orderDetail;
       const orderId: Order["id"] = newOrder.id;
-      orderDetail = orderDetail.map((order) => ({
+      orderDetail = orderDetail.map((order: Partial<OrderDetail>) => ({
         ...order,
-        order_id: orderId,
+        order: orderId,
       }));
 
       const newOrderDetail = await orderDeatilsService.createBulkOrderDetail(

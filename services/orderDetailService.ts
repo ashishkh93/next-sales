@@ -9,7 +9,7 @@ export class OrderDetailService {
   }
 
   async createBulkOrderDetail(
-    orderDetailBody: OrderDetail[]
+    orderDetailBody: Partial<OrderDetail>[]
   ): Promise<OrderDetail[]> {
     const orderDetail = this.orderDetailRepository.create(orderDetailBody);
     return await this.orderDetailRepository.save(orderDetail);
